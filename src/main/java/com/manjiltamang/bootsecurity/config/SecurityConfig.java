@@ -3,14 +3,15 @@ package com.manjiltamang.bootsecurity.config;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  
 @Configuration
-@EnableAutoConfiguration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
  
 	@Autowired
@@ -30,9 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/welcome/**").hasAnyRole("ADMIN","USER")
 			.and()
 			.formLogin().loginPage("/login")
+			.usernameParameter("username").passwordParameter("password")
 			.and()
-			.logout();
-		http.exceptionHandling().accessDeniedPage("/403");
+			.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		    .logoutSuccessUrl("/");
+		http.exceptionHandling().accessDeniedPage("/403")
+		  .and()
+		    .csrf();
 	}
  
 }
