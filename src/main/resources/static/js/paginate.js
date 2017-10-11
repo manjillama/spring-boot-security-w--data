@@ -14,14 +14,14 @@ $(document).ready(function(){
 		  );
 		  return urlParams;
 	}
-	console.log("Url Params",parseQueryString(getPageUrl));
+	//console.log("Url Params",parseQueryString(getPageUrl));
 	// console.log(parseQueryString(getPageUrl).page);	
 	
 	/*
 	 * Building Pagination Links
 	 */
 	if(currentPage>1){
-		$('.pagination').append(`<li class="paginateNext"><a href="?page=${currentPage-1}">&lsaquo;</a></li>`);
+		$('.pagination').append(`<li class="paginatePrev"><a href="?page=${currentPage-1}">&lsaquo;</a></li>`);
 	}
 	for(var i=1; i<=totalPages; i++){	
 		$('.pagination').append(`
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		`);
 	}
 	if(currentPage<totalPages){
-		$('.pagination').append(`<li class="paginatePrev"><a href="?page=${eval(currentPage)+1}">&rsaquo;</a></li>`);
+		$('.pagination').append(`<li class="paginateNext"><a href="?page=${eval(currentPage)+1}">&rsaquo;</a></li>`);
 	}
 	
 	// Adding active class to current page link
@@ -41,6 +41,6 @@ $(document).ready(function(){
 	
 	//hide sibling links around active link
 	var $activeLink = ($('.pagination .active'));
-	$activeLink.nextUntil().eq(1).nextUntil('.paginatePrev').addClass('hidden');
-	$activeLink.prevUntil().eq(1).prevUntil('.paginateNext').addClass('hidden');
+	$activeLink.prevUntil().eq(1).prevUntil('.paginatePrev').addClass('hidden');
+	$activeLink.nextUntil().eq(1).nextUntil('.paginateNext').addClass('hidden');
 });

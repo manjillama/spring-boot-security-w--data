@@ -1,5 +1,7 @@
 package com.manjiltamang.bootsecurity.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,4 +21,20 @@ public class ProductService {
 	public Page<Product> listAllByPage(Pageable pageable) {
 		 return productRepository.findAll(pageable);
 	}
+	
+	public List<Product> getAllByProductSubCategory(String productSubCategory){
+		return productRepository.findByProductSubCategoryIgnoreCase(productSubCategory);
+	}
+	
+	public List<Product> getAllByRange(double minValue, double maxValue, String subCategory){
+		return productRepository.findByProductSubCategoryIgnoreCase(minValue, maxValue, subCategory);
+	}
+	
+	public double getMaxPrice(){
+		return productRepository.getMaxPrice();
+	};
+	
+	public double getMinPrice(){
+		return productRepository.getMinPrice();
+	};
 }

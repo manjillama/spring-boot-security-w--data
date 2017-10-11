@@ -47,4 +47,6 @@ public class DefaultController {
     public List<User> restTest(){
 		 return userService.findAll();
     }
+	
+	
 }

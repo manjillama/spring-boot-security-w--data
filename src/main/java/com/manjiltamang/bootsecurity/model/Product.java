@@ -26,7 +26,7 @@ public class Product implements Serializable{
 	private String productGender;
 	private String productManufacturer;
 	private String productName;
-	private String productPrice;
+	private double productPrice;
 	private Boolean productStatus;
 	private String productSubCategory;
 	private String productType;
@@ -105,11 +105,11 @@ public class Product implements Serializable{
 		this.productManufacturer = productManufacturer;
 	}
 
-	public String getProductPrice() {
+	public double getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(String productPrice) {
+	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
 
