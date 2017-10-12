@@ -14,22 +14,37 @@ $(document).ready(function(){
 		  );
 		  return urlParams;
 	}
-	//console.log("Url Params",parseQueryString(getPageUrl));
+	console.log("Url Params",parseQueryString(getPageUrl));
 	// console.log(parseQueryString(getPageUrl).page);	
 	
 	/*
 	 * Building Pagination Links
 	 */
 	if(currentPage>1){
-		$('.pagination').append(`<li class="paginatePrev"><a href="?page=${currentPage-1}">&lsaquo;</a></li>`);
+		if(parseQueryString(getPageUrl).size != null){
+			$('.pagination').append(`<li class="paginatePrev"><a href="?page=${currentPage-1}&size=${parseQueryString(getPageUrl).size}">&lsaquo;</a></li>`);
+		}else{
+			$('.pagination').append(`<li class="paginatePrev"><a href="?page=${currentPage-1}">&lsaquo;</a></li>`);
+		}
 	}
 	for(var i=1; i<=totalPages; i++){	
-		$('.pagination').append(`
-			<li><a href="?page=${i}">${i}</a></li>
-		`);
-	}
+		if(parseQueryString(getPageUrl).size != null){
+			$('.pagination').append(`
+					<li><a href="?page=${i}&size=${parseQueryString(getPageUrl).size}">${i}</a></li>
+				`);
+		}else{
+			$('.pagination').append(`
+					<li><a href="?page=${i}">${i}</a></li>
+				`);
+			}
+		}
+		
 	if(currentPage<totalPages){
-		$('.pagination').append(`<li class="paginateNext"><a href="?page=${eval(currentPage)+1}">&rsaquo;</a></li>`);
+		if(parseQueryString(getPageUrl).size != null){
+			$('.pagination').append(`<li class="paginateNext"><a href="?page=${eval(currentPage)+1}&size=${parseQueryString(getPageUrl).size}">&rsaquo;</a></li>`);
+		}else{
+			$('.pagination').append(`<li class="paginateNext"><a href="?page=${eval(currentPage)+1}">&rsaquo;</a></li>`);
+		}
 	}
 	
 	// Adding active class to current page link
