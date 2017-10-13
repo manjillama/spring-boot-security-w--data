@@ -37,4 +37,16 @@ public class ProductService {
 	public double getMinPrice(){
 		return productRepository.getMinPrice();
 	};
+	
+	public List<Product> getAllBrands (String subCategory){
+		return productRepository.getBrands(subCategory);
+	};
+	
+	public List<Product> listByProductmanufacturer(String productManufacturer, String subCategory){
+		return productRepository.findByProductManufacturerAndProductSubCategory(productManufacturer, subCategory);
+	}
+	
+	public List<Product> listByManufacturerAndProductPriceRange(double minValue, double maxValue,String productSubCategory, String productManufacturer){
+		return productRepository.listByManufacturerAndProductPriceRange(minValue, maxValue, productSubCategory, productManufacturer);
+	}
 }

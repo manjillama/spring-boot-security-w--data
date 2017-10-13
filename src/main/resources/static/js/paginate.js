@@ -14,7 +14,7 @@ $(document).ready(function(){
 		  );
 		  return urlParams;
 	}
-	console.log("Url Params",parseQueryString(getPageUrl));
+	//console.log("Url Params",parseQueryString(getPageUrl));
 	// console.log(parseQueryString(getPageUrl).page);	
 	
 	/*

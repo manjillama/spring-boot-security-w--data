@@ -20,4 +20,12 @@ public interface ProductRepository extends CrudRepository<Product, Long>, Paging
 	
 	@Query("SELECT MIN(productPrice) FROM Product")
 	double getMinPrice();
+	
+	@Query("SELECT productManufacturer FROM Product where productSubCategory = :productSubCategory GROUP BY productManufacturer")
+	List<Product> getBrands(@Param("productSubCategory")  String productSubCategory);
+	
+	List<Product> findByProductManufacturerAndProductSubCategory(String productManufacturer, String subCategory);
+	
+	@Query("From Product where productSubCategory = :productSubCategory AND productManufacturer = :productManufacturer AND productPrice BETWEEN :minValue AND :maxValue")
+	List<Product> listByManufacturerAndProductPriceRange(@Param("minValue") double minValue, @Param("maxValue") double maxValue,@Param("productSubCategory") String productSubCategory, @Param("productManufacturer") String productManufacturer);
 }
