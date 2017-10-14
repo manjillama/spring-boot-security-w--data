@@ -24,11 +24,18 @@ paginate
 							$scope.tempData.push(data);
 						}
 					});
+	    			// Re-assigning new api data
 	    			$scope.data = $scope.tempData;
+	    			// Re-assigning new totalItems
 		    		$scope.totalItems = $scope.data.length;
 	    		}else{
-	    			console.log("Here");
+	    			/*
+	    			 * on unchecked
+	    			 * Reset api data
+	    			 * Reset total items
+	    			 */
 	    			$scope.data = $scope.constData;
+	    			
 	    			$scope.totalItems = $scope.data.length;
 	    		}
 	    		
@@ -60,10 +67,14 @@ paginate
 			
 			function angularSortAndPaginate(){
 				$http.get(jsonUrl).then(function(response){
+					// Constant Full Api Data
 					$scope.constData = response.data;
+					// Dynamin Api Data
 					$scope.data = response.data;
-					$scope.brands = [];
 					
+					
+					$scope.brands = [];
+					// Initializing with all the unique brands
 					angular.forEach($scope.data, function(data) {
 						// Append only if unique, returns -1 if element doesn't exist
 						if($scope.brands.indexOf(data.productManufacturer) == -1){
@@ -102,5 +113,4 @@ paginate
 			};
 			
 			angularSortAndPaginate();
-			
 }]); // End of controller
